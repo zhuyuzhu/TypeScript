@@ -382,3 +382,178 @@ cache.foo = 'foo1'
 cache.bar = 'bar1'
 ```
 
+
+
+### 类：
+
+类的属性，必须要有初始值，或在构造函数中通过this赋值
+
+类的属性，在使用前，必须在类中声明
+
+```ts
+class Person {
+    name: string = 'init name'; //可以赋默认值
+    age: number;
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+    sayHi (msg: string) { //可以在函数中访问声明的类属性
+        console.log(`I am ${this.name}, ${msg}`)
+    }
+}
+let person: Person = new Person('zhu', 25)
+person.sayHi('in a bad mood today')
+```
+
+类的私有属性：——访问级别
+
+```ts
+class Person {
+    public name: string = 'init name'; //默认就是public，平时都省略public
+    private age: number;
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+    printAge () { //内部方法可以访问私有属性
+        console.log(`I am ${this.age}`)
+    }
+}
+let person: Person = new Person('zhu', 25)
+console.log(person.name)
+console.log(person.age) //报错
+```
+
+还有关键词：protected
+
+如果类的constructor 设置为private，那么就不可以通过new的方式来创建实例
+
+还要参考：https://www.bilibili.com/video/BV1784y1c7V9?p=39
+
+
+
+属性修饰符：readonly
+
+- 要在其他修饰符后
+- 在类属性声明时赋值或在构造函数中赋值
+
+```ts
+class Person {
+    public name: string = 'init name';
+    private age: number;
+    protected gender: boolean;
+    private readonly lover: string; //readonly要在其他修饰符后
+    constructor(name: string, age: number) {
+        this.age = age;
+        this.gender = true;
+        this.lover = ''
+    }
+}
+```
+
+
+
+### 接口
+
+类的公共功能抽象为接口，对象必须实现对应的接口。与此相关的有公共的父类
+
+```js
+interface EatAndRun {
+    eat (food: string): void;
+    run (distance: number): void;
+}
+interface Say {
+    say(language: string): void
+}
+
+class Person implements EatAndRun, Say{
+    constructor() {
+        
+    }
+    eat(food: string): void {
+
+    }
+    run(distance: number){
+
+    }
+    say(language: string) {
+        
+    }
+}
+```
+
+
+
+### 抽象类
+
+抽象类只能被继承，而不能通过new创建实例对象
+
+```tsx
+abstract class Animal {
+    eat (food: string): void {
+        console.log(`Eating ${food}`)
+    }
+    abstract run (distance: number): void; //抽象方法只声明，在子类中创建
+}
+
+class Dog extends Animal {
+    // constructor() {
+    //     super()
+    // }
+    run (distance: number): void {
+        console.log(distance)
+    }
+}
+let dog = new Dog()
+dog.run(25)
+```
+
+
+
+### 泛型
+
+声明函数或类时，没有指定类型，当使用时再指定类型——目的，极大的复用代码
+
+`Array<number>`泛型Array，使用时，再指定了number类型的内容
+
+```ts
+function createArr (length: number, value: number): number[] {
+    let arr = Array<number>(length).fill(value); //TS中Array的类型为any，内容值可以是任务类型
+    return arr;
+}
+```
+
+将上述函数泛型化，可接受不同类型的值，组成数组
+
+```ts
+function createArr<T> (length: number, value: T): T[] {
+    let arr = Array<T>(length).fill(value); //T 为类型变量，可以传number、string等
+    return arr;
+}
+let strArr = createArr<string> (3, 'abc')
+console.log(strArr) //[ 'abc', 'abc', 'abc' ]
+```
+
+
+
+### TS中第三方模块类型申明
+
+有的模块，不是TS开发的，引用时，会报一些类型申明的错，需要在我们使用时，特别申明
+
+或模块对应的类型申明模块
+
+比如：lodash
+
+```ts
+import { camelCase } from 'lodash'
+declare function camelCase (input: string): string; //需要手动去申明
+let res = camelCase('hello lodash')
+```
+
+该模块有自己的类型申明`@types/lodash`，下载安装对应的类型申明即可，就不需要declare去申明了
+
+很多模块，已经集成了内部声明文件，比如：`query-string`
+
+
+
