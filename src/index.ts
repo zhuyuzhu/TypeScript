@@ -1,9 +1,10 @@
-
+(function () {
+    
 const flag: boolean = true // false
 
 const n: null = null
 const unde: undefined = undefined
-const sym: symbol = Symbol()
+
 
 const obj: {foo: string, num: number} = {foo: 'abc', num: 123}
 
@@ -20,12 +21,22 @@ const tuple: [number, string] = [123, 'abc']
 console.log(tuple[0]) //123
 
 const enum status {
-    st1 = 3,
+    st1,
     st2,
     st3,
 }
-console.log(status.st2) // 4
+console.log(status.st1) // 4
 
+enum FileAccess {
+    // constant members
+    None,  //0
+    Read = 1 << 1, // 2^1 = 2
+    Write = 1 << 2, // 4
+    ReadWrite = Read | Write,
+    // computed member
+    G = "123".length,
+  }
+  console.log(FileAccess.None, FileAccess.Read, FileAccess.Write, FileAccess.G)
 const func: (a: string, b?: number, ...rest: number[]) => string = function (a: string, b: number = 10, ...rest: number[]): string {
     return ''
 }
@@ -41,10 +52,10 @@ stringify('xyz')
 stringify(100)
 
 const nums = [100, 200, 300]
-let res = nums.find(i => i > 0);
-let num2 = <number>res;
+let res  = nums.find(i => i > 0) as number;
+let num1 = <number>res;
+let num2 = res as number;
 
-export {} //该文件成为模块作用域
 
 
 interface Post {
@@ -122,3 +133,21 @@ console.log(strArr) //[ 'abc', 'abc', 'abc' ]
 // import { camelCase } from 'lodash'
 // declare function camelCase (input: string): string; //需要手动去申明
 // let res = camelCase('hello lodash')
+
+class Student {
+    readonly name: string;
+    private age:number;
+    protected gender: boolean;
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+        this.gender = true;
+    }
+}
+
+const person = {
+    name: 'zhu'
+}
+person.hasOwnProperty('name')
+
+})()

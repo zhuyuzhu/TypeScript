@@ -1,3 +1,53 @@
+# tsconfig.json
+
+**表示目录，
+
+*表示文件；
+
+
+
+```json
+{
+    "include": [//指定哪些目录被编译，设置目录，而files设置文件
+        "./src/**/*"
+    ],
+    "exclude": [//指定哪些目录不被编译。默认值：["node_modules","bower_components","jspm_"]
+        "./src/test/**/*"
+    ],
+    "files":[//指定文件被编译
+        "core.ts",
+        "sys.ts",
+        "index.ts"
+    ],
+    compilerOptions: {
+        //注意：target设置为es5时，ES6的所有新特性都将会报错，同时需要设置lib: ["ES2015", "DOM"]
+        "target": "es5", //指定编译后的js版本，可选值："es3","es5","es2015","es2016"...
+        "module": "es2015", //指定TS的模块化规范，可选值："none","amd","commonjs","es2015"
+        "lib": ["es6", "dom"], // 指定项目中药使用的库
+        "outDir": "./dist", //输出文件目录
+        "rootDir": "src", //TS源代码目录
+        "outFile": "./dist/app.js", //将文件编译后输出到指定文件中
+        "sourceMap": true, //开始源代码映射
+        "allowJs": false, //是否对js文件进行编译，默认是：false
+        "checkJs": false, //是否对js文件进行类型检查，默认值：false
+        "removeCommoents": false, //是否移除注释，默认值：false
+        "noEmit": false, //执行编译过程，而不生成编译后的js文件，默认值：false
+        "noEmitOnError": false, //编译过程出错时，不生成编译后的js文件，默认值：false
+        
+        "strict":true, //所有严格检查的总开关
+        "alwaysStrict": false, //是否编程成严格模式下的js文件，默认值：false
+        "noImplicitAny": false, //TS中不允许隐式any类型，默认值：false
+        "noImplicitThis": false, //TS中不允许不明确的this，比如函数中的this，默认值：false
+        "strictNullChecks": true, //严格检查null值, 默认值：false
+        
+        
+    }
+}
+```
+
+
+
+```json
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
@@ -70,3 +120,6 @@
     "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
   }
 }
+
+```
+

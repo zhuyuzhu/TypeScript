@@ -29,6 +29,10 @@ yarn tsc
 
 
 
+### 数据类型
+
+参考地址：https://www.tslang.cn/docs/handbook/basic-types.html
+
 原始类型
 
 ```js
@@ -49,7 +53,7 @@ const sym: symbol = Symbol()
 
 1、修改"target": "ES2015"
 
-2、配置文件中的lib
+2、配置文件中的lib，lib有默认值，如果设置lib，将会覆盖默认值，所以要设置完整的依赖内容
 
 - ES2015
 - DOM：添加DOM和BOM内置对象，比如console对象
@@ -556,4 +560,8 @@ let res = camelCase('hello lodash')
 很多模块，已经集成了内部声明文件，比如：`query-string`
 
 
+
+### 其他文章
+
+https://zhuanlan.zhihu.com/p/147765838
 
